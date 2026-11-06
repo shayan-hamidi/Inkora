@@ -145,4 +145,35 @@ insert into public.tattoo_tags (tattoo_id, tag_id) values
   ('55555555-5555-4555-8555-555555555504', '44444444-4444-4444-8444-444444444405'),
   ('55555555-5555-4555-8555-555555555505', '44444444-4444-4444-8444-444444444404');
 
+-- Demo artists (synthetic profiles for directory / consultation storage demos)
+insert into public.artist_profiles (
+  id, display_name, slug, bio, city, studio_name, styles_summary, is_published
+) values
+  (
+    '66666666-6666-4666-8666-666666666601',
+    'Mira Vale',
+    'mira-vale',
+    'Fine-line and quiet celestial work. Demo artist profile for INKORA — not a real booking contact.',
+    'Lisbon',
+    'Atelier Vale',
+    'Fine line · Minimal · Nature',
+    true
+  ),
+  (
+    '66666666-6666-4666-8666-666666666602',
+    'Jon Ash',
+    'jon-ash',
+    'Blackwork geometry and ornamental spines. Demo artist profile for INKORA — not a real booking contact.',
+    'Berlin',
+    'Ash Room',
+    'Blackwork · Ornamental · Geometry',
+    true
+  );
+
+insert into public.artist_tattoos (artist_id, tattoo_id) values
+  ('66666666-6666-4666-8666-666666666601', '55555555-5555-4555-8555-555555555504'),
+  ('66666666-6666-4666-8666-666666666601', '55555555-5555-4555-8555-555555555502'),
+  ('66666666-6666-4666-8666-666666666602', '55555555-5555-4555-8555-555555555503'),
+  ('66666666-6666-4666-8666-666666666602', '55555555-5555-4555-8555-555555555505');
+
 commit;

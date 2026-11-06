@@ -23,6 +23,10 @@ const serverEnvSchema = publicEnvSchema.extend({
     .enum(["true", "false"])
     .optional()
     .transform((value) => value === "true"),
+  INKORA_AI_MOCK: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((value) => value === "true"),
 });
 
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
@@ -46,5 +50,6 @@ export function getServerEnv(): ServerEnv {
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     HF_TOKEN: process.env.HF_TOKEN,
     IMAGE_GENERATION_ENABLED: process.env.IMAGE_GENERATION_ENABLED,
+    INKORA_AI_MOCK: process.env.INKORA_AI_MOCK,
   });
 }

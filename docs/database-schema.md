@@ -2,7 +2,7 @@
 
 This document matches the version-controlled SQL migrations under [`supabase/migrations/`](../supabase/migrations/).
 
-Last updated: Phase 15 (favorites, collections, AI generations + optional images).
+Last updated: Phase 18 (artists + consultations + admin policies).
 
 ---
 
@@ -14,10 +14,10 @@ Last updated: Phase 15 (favorites, collections, AI generations + optional images
 | Catalog taxonomies | `categories`, `styles`, `placements`, `tags` | Public read |
 | Catalog content | `tattoos`, `tattoo_styles`, `tattoo_placements`, `tattoo_tags` | Published rows are public |
 | User saves | `favorites`, `collections`, `collection_items` | Owner RLS; public collections readable |
-| AI | `ai_generations`, `ai_generation_images` | Private to owner; rate limits counted here |
+| AI | `ai_generations`, `ai_generation_images` | Private to owner; admins can read metrics |
+| Artists | `artist_profiles`, `artist_tattoos` | Published public read; admin write |
+| Consultations | `consultation_requests` | Store-only inserts; admin/artist select |
 | Storage | buckets `tattoo-images`, `ai-generation-images` | Catalog public; AI images private per user folder |
-
-Not yet implemented (later phases): `artist_profiles`, consultation requests.
 
 ---
 
@@ -180,6 +180,7 @@ No scraped tattoo portfolios are included.
 | `20261106190000_create_profiles.sql` | Profiles, role protection, signup trigger |
 | `20261106200000_create_catalog_schema.sql` | Catalog, FTS, RLS, storage bucket |
 | `20261107010000_create_favorites_collections_ai.sql` | Favorites, collections, AI tables + AI image bucket |
+| `20261107020000_create_artists_admin_policies.sql` | Artists, consultations, admin AI select policies |
 
 Apply locally:
 

@@ -47,7 +47,7 @@ Related documents:
 | In progress | Currently being implemented |
 | Done | Completed and approved by you |
 
-Current overall status: **Phases 0–15 complete. Phase 16 not started.**
+Current overall status: **Phases 0–18 complete.**
 
 ---
 
@@ -544,7 +544,7 @@ Optional image provider. Confirm a workable free Hugging Face approach before ad
 
 ## Phase 16 — Admin dashboard
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -566,15 +566,15 @@ Server-verified admin area for catalog and taxonomy management.
 
 ### Acceptance criteria
 
-- [ ] Non-admins cannot access admin UI or APIs
-- [ ] Role never trusted from the client
-- [ ] Uploads require attribution/license metadata
+- [x] Non-admins cannot access admin UI or APIs
+- [x] Role never trusted from the client
+- [x] Uploads require attribution/license metadata
 
 ---
 
 ## Phase 17 — Artists
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -594,15 +594,15 @@ Artist discovery and portfolios. Propose `consultation_requests` table before im
 
 ### Acceptance criteria
 
-- [ ] No real-time messaging introduced
-- [ ] Consultation storage approved before schema change
-- [ ] Artist pages match editorial design language
+- [x] No real-time messaging introduced
+- [x] Consultation storage approved before schema change
+- [x] Artist pages match editorial design language
 
 ---
 
 ## Phase 18 — Hardening and release
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -624,25 +624,27 @@ Accessibility, performance, full E2E coverage of critical journeys, SEO, README 
 
 ### Acceptance criteria
 
-- [ ] All 10 critical journeys covered by automated E2E (or documented gaps with reason)
-- [ ] README has no features that do not exist
-- [ ] Deployment instructions work for Vercel Hobby + Supabase Free
-- [ ] Zero paid mandatory dependencies for core features
+- [x] All 10 critical journeys covered by automated E2E (or documented gaps with reason)
+- [x] README has no features that do not exist
+- [x] Deployment instructions work for Vercel Hobby + Supabase Free
+- [x] Zero paid mandatory dependencies for core features
 
 ---
 
 ## Critical user journeys (E2E targets)
 
-1. Browse tattoo gallery
-2. Search and filter tattoos
-3. View tattoo details
-4. Register and log in
-5. Save a favorite
-6. Create and edit a collection
-7. Generate AI concepts
-8. Refine an AI concept
-9. Verify private collection access
-10. Verify unauthorized admin access is rejected
+Covered by Playwright under `tests/e2e/` (AI generation uses `INKORA_AI_MOCK=true` in Playwright webServer):
+
+1. Browse tattoo gallery — `discovery.spec.ts`
+2. Search and filter tattoos — `discovery.spec.ts`
+3. View tattoo details — `discovery.spec.ts`
+4. Register and log in — `auth.spec.ts`
+5. Save a favorite — `favorites-collections.spec.ts`
+6. Create and edit a collection — `favorites-collections.spec.ts`
+7. Generate AI concepts — `studio-ai.spec.ts` (mock provider)
+8. Refine an AI concept — `studio-ai.spec.ts` (mock provider)
+9. Verify private collection access — `collections-privacy.spec.ts`
+10. Verify unauthorized admin access is rejected — `admin.spec.ts`
 
 ---
 

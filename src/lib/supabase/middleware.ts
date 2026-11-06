@@ -8,6 +8,7 @@ const protectedPrefixes = [
   "/favorites",
   "/collections",
   "/studio/history",
+  "/admin",
 ];
 
 /**

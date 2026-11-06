@@ -75,6 +75,52 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"artist_profiles": {
+                  Row: {
+                    "bio": string | null,"city": string | null,"created_at": string,"display_name": string,"id": string,"instagram_handle": string | null,"is_published": boolean,"slug": string,"studio_name": string | null,"styles_summary": string | null,"updated_at": string,"user_id": string | null,"website_url": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "bio"?: string | null,"city"?: string | null,"created_at"?: string,"display_name": string,"id"?: string,"instagram_handle"?: string | null,"is_published"?: boolean,"slug": string,"studio_name"?: string | null,"styles_summary"?: string | null,"updated_at"?: string,"user_id"?: string | null,"website_url"?: string | null
+                  }
+                  Update: {
+                    "bio"?: string | null,"city"?: string | null,"created_at"?: string,"display_name"?: string,"id"?: string,"instagram_handle"?: string | null,"is_published"?: boolean,"slug"?: string,"studio_name"?: string | null,"styles_summary"?: string | null,"updated_at"?: string,"user_id"?: string | null,"website_url"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "artist_profiles_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"artist_tattoos": {
+                  Row: {
+                    "artist_id": string,"created_at": string,"tattoo_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "artist_id": string,"created_at"?: string,"tattoo_id": string
+                  }
+                  Update: {
+                    "artist_id"?: string,"created_at"?: string,"tattoo_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "artist_tattoos_artist_id_fkey"
+      columns: ["artist_id"]
+isOneToOne: false
+      referencedRelation: "artist_profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "artist_tattoos_tattoo_id_fkey"
+      columns: ["tattoo_id"]
+isOneToOne: false
+      referencedRelation: "tattoos"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"categories": {
                   Row: {
                     "created_at": string,"description": string | null,"id": string,"name": string,"slug": string,"updated_at": string
@@ -136,6 +182,32 @@ isOneToOne: false
                     {
       foreignKeyName: "collections_user_id_fkey"
       columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"consultation_requests": {
+                  Row: {
+                    "artist_id": string,"created_at": string,"id": string,"message": string,"preferred_placement": string | null,"requester_email": string,"requester_name": string,"requester_user_id": string | null,"status": Database["public"]['Enums']["consultation_status"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "artist_id": string,"created_at"?: string,"id"?: string,"message": string,"preferred_placement"?: string | null,"requester_email": string,"requester_name": string,"requester_user_id"?: string | null,"status"?: Database["public"]['Enums']["consultation_status"]
+                  }
+                  Update: {
+                    "artist_id"?: string,"created_at"?: string,"id"?: string,"message"?: string,"preferred_placement"?: string | null,"requester_email"?: string,"requester_name"?: string,"requester_user_id"?: string | null,"status"?: Database["public"]['Enums']["consultation_status"]
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "consultation_requests_artist_id_fkey"
+      columns: ["artist_id"]
+isOneToOne: false
+      referencedRelation: "artist_profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "consultation_requests_requester_user_id_fkey"
+      columns: ["requester_user_id"]
 isOneToOne: false
       referencedRelation: "profiles"
       referencedColumns: ["id"]
@@ -332,7 +404,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "ai_generation_kind": "concept"|"refine"|"symbolism"|"visual_prompt","ai_generation_status": "succeeded"|"failed","ai_image_source": "ai"|"licensed_reference","collection_visibility": "private"|"public","user_role": "user"|"admin"
+            "ai_generation_kind": "concept"|"refine"|"symbolism"|"visual_prompt","ai_generation_status": "succeeded"|"failed","ai_image_source": "ai"|"licensed_reference","collection_visibility": "private"|"public","consultation_status": "new"|"reviewed"|"archived","user_role": "user"|"admin"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -452,7 +524,7 @@ export const Constants = {
           }
         },"public": {
           Enums: {
-            "ai_generation_kind": ["concept", "refine", "symbolism", "visual_prompt"],"ai_generation_status": ["succeeded", "failed"],"ai_image_source": ["ai", "licensed_reference"],"collection_visibility": ["private", "public"],"user_role": ["user", "admin"]
+            "ai_generation_kind": ["concept", "refine", "symbolism", "visual_prompt"],"ai_generation_status": ["succeeded", "failed"],"ai_image_source": ["ai", "licensed_reference"],"collection_visibility": ["private", "public"],"consultation_status": ["new", "reviewed", "archived"],"user_role": ["user", "admin"]
           }
         }
 } as const

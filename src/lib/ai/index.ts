@@ -1,10 +1,15 @@
 import "server-only";
 
 import { createGeminiTextProvider } from "@/lib/ai/providers/gemini";
+import { createMockTextProvider } from "@/lib/ai/providers/mock";
 import { getImageProvider } from "@/lib/ai/image-provider";
 import type { TextProvider } from "@/lib/ai/text-provider";
 
 export function getTextProvider(): TextProvider {
+  if (process.env.INKORA_AI_MOCK === "true") {
+    return createMockTextProvider();
+  }
+
   return createGeminiTextProvider();
 }
 

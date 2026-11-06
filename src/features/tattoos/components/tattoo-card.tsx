@@ -16,6 +16,8 @@ export function TattooCard({ tattoo, priority = false }: TattooCardProps) {
             src={tattoo.imagePath}
             alt={tattoo.imageAlt ?? tattoo.title}
             priority={priority}
+            width={tattoo.imageWidth}
+            height={tattoo.imageHeight}
             className="transition-transform duration-500 motion-safe:group-hover:scale-[1.02]"
           />
         </div>

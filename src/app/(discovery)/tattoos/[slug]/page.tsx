@@ -79,6 +79,8 @@ async function TattooDetailContent({
             src={tattoo.imagePath}
             alt={tattoo.imageAlt ?? tattoo.title}
             priority
+            width={tattoo.imageWidth}
+            height={tattoo.imageHeight}
           />
         </div>
 

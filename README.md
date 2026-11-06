@@ -10,13 +10,11 @@ This repository is a portfolio-grade full-stack application. Development follows
 
 ## Current status
 
-**Phases 1–15 complete — through favorites, collections, and AI Studio**
+**Phases 0–18 complete — portfolio MVP roadmap finished**
 
-Shipping surface now includes favorites, collections, Gemini text concepts (with history/refine), and an honest unavailable AI-image path. Admin and artists come next.
+Shipped surface: discovery, auth, favorites/collections, AI Studio, admin catalog tools, artist directory with store-only consultations, sitemap/robots, and deploy docs.
 
-Next step: **Phase 16 — Admin dashboard** (requires explicit approval).
-
-See [docs/development-phases.md](docs/development-phases.md) for the full 18-phase roadmap.
+See [docs/development-phases.md](docs/development-phases.md) and [docs/product-specification.md](docs/product-specification.md).
 
 ---
 
@@ -44,9 +42,9 @@ Status legend: **planned** means not implemented yet.
 | AI tattoo concept generation | P2 | shipped |
 | AI concept refinement | P2 | shipped |
 | Optional AI image generation | P2 | shipped (unavailable by default) |
-| Admin dashboard | P2 | planned |
-| Artist discovery and profiles | P3 | planned |
-| Consultation requests (store only) | P3 | planned |
+| Admin dashboard | P2 | shipped |
+| Artist discovery and profiles | P3 | shipped |
+| Consultation requests (store only) | P3 | shipped |
 
 Out of scope for the initial release:
 
@@ -225,6 +223,7 @@ Migrations live in [`supabase/migrations/`](supabase/migrations/).
 | `20261106190000_create_profiles.sql` | `profiles`, role protection, signup trigger |
 | `20261106200000_create_catalog_schema.sql` | Catalog taxonomies, tattoos, FTS, RLS, `tattoo-images` bucket |
 | `20261107010000_create_favorites_collections_ai.sql` | Favorites, collections, AI generations/images + private AI storage bucket |
+| `20261107020000_create_artists_admin_policies.sql` | Artists, consultations, admin AI read policies |
 
 Seed file: [`supabase/seed.sql`](supabase/seed.sql) (synthetic demo artwork only — no scraped portfolios).
 
@@ -292,7 +291,23 @@ pnpm start
 
 ## Vercel deployment
 
-> Not available yet. Deployment instructions for Vercel Hobby will be completed in **Phase 18**.
+Target: **Vercel Hobby** + **Supabase Free**.
+
+1. Create a Supabase project and run migrations from `supabase/migrations/` (`supabase db push` or SQL editor).
+2. Seed carefully — `supabase/seed.sql` is for local demos; adapt for production.
+3. In Vercel, import this repo and set environment variables from `.env.example` (production values only; never commit secrets).
+4. Set `NEXT_PUBLIC_APP_URL` to the Vercel URL (or custom domain).
+5. In Supabase Auth, add the production redirect URL: `https://YOUR_DOMAIN/auth/callback`.
+6. Deploy. Confirm `/api/health`, `/tattoos`, and login.
+7. Promote an admin only via trusted SQL / service role:
+
+```sql
+update public.profiles
+set role = 'admin'
+where id = '<auth-user-uuid>';
+```
+
+Optional: set `GEMINI_API_KEY` for live Studio text. Set `INKORA_AI_MOCK=true` only for demos/tests — never in production.
 
 ---
 
@@ -326,10 +341,12 @@ Details: [docs/architecture.md](docs/architecture.md)
 
 ## Known limitations
 
-- Catalog UI, auth forms, AI, and admin features are not implemented yet (placeholder routes / infra only)
-- Screenshots will be added after richer UI phases
-- Product specification, database schema, and API reference docs are created in the phases that produce their content
-- Local Supabase requires Docker Desktop running
+- AI image generation is unavailable by default (no reliable free HF path as of 2026-11-07)
+- AI e2e uses `INKORA_AI_MOCK=true`; live Gemini requires `GEMINI_API_KEY`
+- Consultation requests are stored only — no email/chat/booking pipeline
+- Demo artists/tattoos are synthetic portfolio content, not scraped portfolios
+- Local Supabase requires Docker Desktop
+- Screenshots are not bundled; use the running app for visuals
 
 ---
 

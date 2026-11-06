@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { registerAndLandOnAccount } from "./helpers/auth";
 
 test("studio shows sign-in gate without auth", async ({ page }) => {
   await page.goto("/studio");
@@ -10,18 +11,15 @@ test("studio shows sign-in gate without auth", async ({ page }) => {
   ).toBeVisible();
 });
 
-
 test("image generation unavailable state is honest", async ({ page }) => {
   const email = `studio-e2e-${Date.now()}@example.com`;
   const password = "TestPassword123!";
 
-  await page.goto("/register");
-  await page.getByLabel("Display name").fill("Studio Tester");
-  await page.getByLabel("Email").fill(email);
-  await page.getByLabel("Password", { exact: true }).fill(password);
-  await page.getByLabel("Confirm password").fill(password);
-  await page.getByRole("button", { name: "Create account" }).click();
-  await expect(page).toHaveURL(/\/account/);
+  await registerAndLandOnAccount(page, {
+    displayName: "Studio Tester",
+    email,
+    password,
+  });
 
   await page.goto("/studio");
   await expect(page.getByText(/Free-tier disclosure/i)).toBeVisible();

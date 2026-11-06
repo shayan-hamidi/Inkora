@@ -1,8 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Demo geometric forearm tattoo">
-  <rect width="800" height="1000" fill="#F7F5F0"/>
-  <polygon points="400,180 560,460 240,460" fill="none" stroke="#171717" stroke-width="8"/>
-  <polygon points="400,300 500,460 300,460" fill="none" stroke="#753D43" stroke-width="5"/>
-  <line x1="400" y1="180" x2="400" y2="700" stroke="#171717" stroke-width="4"/>
-  <circle cx="400" cy="720" r="28" fill="none" stroke="#171717" stroke-width="6"/>
-  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo · synthetic artwork</text>
+  <rect width="800" height="1000" fill="#EAE6DE"/>
+  <path d="M400 220 L520 420 L280 420 Z" fill="none" stroke="#171717" stroke-width="8"/>
+  <path d="M400 300 L470 420 L330 420 Z" fill="none" stroke="#753D43" stroke-width="5"/>
+  <line x1="400" y1="420" x2="400" y2="760" stroke="#171717" stroke-width="7"/>
+  <line x1="340" y1="520" x2="460" y2="520" stroke="#171717" stroke-width="5"/>
+  <line x1="350" y1="620" x2="450" y2="620" stroke="#171717" stroke-width="5"/>
+  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo - synthetic artwork</text>
 </svg>
