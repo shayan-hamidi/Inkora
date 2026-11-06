@@ -13,7 +13,11 @@ const navItems = [
   { href: "/artists", label: "Artists" },
 ] as const;
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  isAuthenticated?: boolean;
+};
+
+export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
@@ -28,10 +32,7 @@ export function SiteHeader() {
           INKORA
         </Link>
 
-        <nav
-          className="hidden items-center gap-8 md:flex"
-          aria-label="Primary"
-        >
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -44,12 +45,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" asChild>
-            <Link href="/login">Sign in</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/register">Join</Link>
-          </Button>
+          {isAuthenticated ? (
+            <Button asChild>
+              <Link href="/account">Account</Link>
+            </Button>
+          ) : (
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/login">Sign in</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/register">Join</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <Button
@@ -94,16 +103,26 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="flex gap-3 pt-2">
-              <Button variant="outline" asChild className="flex-1">
-                <Link href="/login" onClick={() => setMobileOpen(false)}>
-                  Sign in
-                </Link>
-              </Button>
-              <Button asChild className="flex-1">
-                <Link href="/register" onClick={() => setMobileOpen(false)}>
-                  Join
-                </Link>
-              </Button>
+              {isAuthenticated ? (
+                <Button asChild className="flex-1">
+                  <Link href="/account" onClick={() => setMobileOpen(false)}>
+                    Account
+                  </Link>
+                </Button>
+              ) : (
+                <>
+                  <Button variant="outline" asChild className="flex-1">
+                    <Link href="/login" onClick={() => setMobileOpen(false)}>
+                      Sign in
+                    </Link>
+                  </Button>
+                  <Button asChild className="flex-1">
+                    <Link href="/register" onClick={() => setMobileOpen(false)}>
+                      Join
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
         </motion.div>

@@ -1,10 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasSupabasePublicConfig } from "@/lib/supabase/config";
+import type { Database } from "@/types/database";
+
+const protectedPrefixes = ["/account", "/favorites", "/collections"];
 
 /**
  * Refreshes the Supabase auth session on the request/response cookies.
- * Safe to call when public Supabase env vars are missing (returns next()).
+ * Protects dashboard prefixes; leaves public marketing/discovery open.
  */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -20,7 +23,7 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  const supabase = createServerClient(url, anonKey, {
+  const supabase = createServerClient<Database>(url, anonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
@@ -43,8 +46,19 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // Verifies the JWT. Prefer getClaims over trusting cookie session alone.
-  await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getClaims();
+  const isAuthenticated = Boolean(data?.claims);
+  const pathname = request.nextUrl.pathname;
+  const isProtected = protectedPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+
+  if (isProtected && !isAuthenticated) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/login";
+    redirectUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
 
   return supabaseResponse;
 }

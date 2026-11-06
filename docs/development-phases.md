@@ -47,7 +47,7 @@ Related documents:
 | In progress | Currently being implemented |
 | Done | Completed and approved by you |
 
-Current overall status: **Phases 0–4 complete. Phase 5 not started.**
+Current overall status: **Phases 0–10 complete. Phase 11 not started.**
 
 ---
 
@@ -211,7 +211,7 @@ Catalog schema, indexes, RLS, storage bucket, and licensed / demo seed data. Cre
 
 ## Phase 5 — Data-access layer
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -231,15 +231,15 @@ Generated database types and typed query modules for the public catalog. No full
 
 ### Acceptance criteria
 
-- [ ] No raw untyped client usage in features that already have modules
-- [ ] Server modules use `server-only`
-- [ ] Tests run against local Supabase and pass
+- [x] No raw untyped client usage in features that already have modules
+- [x] Server modules use `server-only`
+- [x] Tests run against local Supabase and pass
 
 ---
 
 ## Phase 6 — Marketing landing page
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -262,16 +262,16 @@ Editorial landing experience with restrained motion and one isolated, lazy-loade
 
 ### Acceptance criteria
 
-- [ ] Premium editorial feel, not SaaS dashboard
-- [ ] `prefers-reduced-motion` yields static experience
-- [ ] Expensive libs are lazy-loaded
-- [ ] Page works if featured query returns empty (empty state)
+- [x] Premium editorial feel, not SaaS dashboard
+- [x] `prefers-reduced-motion` yields static experience
+- [x] Expensive libs are lazy-loaded
+- [x] Page works if featured query returns empty (empty state)
 
 ---
 
 ## Phase 7 — Discovery gallery
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -292,16 +292,16 @@ Core tattoo gallery grid with loading, empty, and error states.
 
 ### Acceptance criteria
 
-- [ ] Works on mobile, tablet, desktop
-- [ ] Images lazy-load with sensible `sizes`
-- [ ] Empty and error states are clear
-- [ ] Server Components used by default
+- [x] Works on mobile, tablet, desktop
+- [x] Images lazy-load with sensible `sizes`
+- [x] Empty and error states are clear
+- [x] Server Components used by default
 
 ---
 
 ## Phase 8 — Search and filtering
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -322,16 +322,16 @@ URL-driven search and filters backed by Postgres full-text search. Create `docs/
 
 ### Acceptance criteria
 
-- [ ] Filters are bookmarkable via URL
-- [ ] Invalid params rejected safely
-- [ ] API reference matches implementation
-- [ ] No silent failures
+- [x] Filters are bookmarkable via URL
+- [x] Invalid params rejected safely
+- [x] API reference matches implementation
+- [x] No silent failures
 
 ---
 
 ## Phase 9 — Tattoo detail pages
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -353,15 +353,15 @@ Detail view with attribution, related tattoos, and metadata.
 
 ### Acceptance criteria
 
-- [ ] Licensing info visible when present
-- [ ] Unknown slug returns not-found
-- [ ] Related section degrades gracefully when empty
+- [x] Licensing info visible when present
+- [x] Unknown slug returns not-found
+- [x] Related section degrades gracefully when empty
 
 ---
 
 ## Phase 10 — Authentication UI
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -382,10 +382,10 @@ User-facing auth flows with React Hook Form + Zod, wired to Supabase Auth.
 
 ### Acceptance criteria
 
-- [ ] Happy-path auth works against local stack
-- [ ] Clear error states for invalid credentials
-- [ ] Protected routes redirect unauthenticated users
-- [ ] README auth-related env notes updated if needed
+- [x] Happy-path auth works against local stack
+- [x] Clear error states for invalid credentials
+- [x] Protected routes redirect unauthenticated users
+- [x] README auth-related env notes updated if needed
 
 ---
 

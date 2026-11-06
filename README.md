@@ -10,11 +10,11 @@ This repository is a portfolio-grade full-stack application. Development follows
 
 ## Current status
 
-**Phases 1–4 complete — foundation through catalog schema/seed**
+**Phases 1–10 complete — foundation through authentication UI**
 
-The app includes the editorial shell, Supabase Auth infrastructure, and a seeded public tattoo catalog (synthetic demo artwork + RLS). Gallery UI and typed data-access land in later phases.
+Shipping surface now includes catalog data-access, marketing landing, gallery search/filters, tattoo detail pages, and auth (register / login / reset / account). Favorites and collections come next.
 
-Next step: **Phase 5 — Data-access layer** (requires explicit approval).
+Next step: **Phase 11 — Favorites** (requires explicit approval).
 
 See [docs/development-phases.md](docs/development-phases.md) for the full 18-phase roadmap.
 
