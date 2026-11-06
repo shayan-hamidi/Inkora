@@ -10,11 +10,11 @@ This repository is a portfolio-grade full-stack application. Development follows
 
 ## Current status
 
-**Phases 1–2 complete — foundation + design system**
+**Phases 1–3 complete — foundation, design system, Supabase auth infrastructure**
 
-The Next.js app scaffolds with the INKORA editorial layout shell (header, footer, tokens, typography). Placeholder routes exist for Discover, Studio, Artists, and auth.
+The Next.js app includes the INKORA editorial layout shell plus local Supabase Auth clients, session proxy refresh, `profiles` migration/RLS, and an auth callback route. Catalog and auth UI come in later phases.
 
-Next step: **Phase 3 — Supabase and auth infrastructure** (requires explicit approval).
+Next step: **Phase 4 — Content schema and seed** (requires explicit approval).
 
 See [docs/development-phases.md](docs/development-phases.md) for the full 18-phase roadmap.
 
@@ -177,15 +177,54 @@ See [.env.example](.env.example) for variable **names only**. Copy to `.env.loca
 
 Development uses a **local Supabase stack** (CLI + Docker). Deployment uses a hosted Supabase Free project.
 
-> Setup instructions will be added in **Phase 3**.
+### Local setup
+
+1. Install and start Docker Desktop.
+2. From the repo root:
+
+```bash
+pnpm db:start
+```
+
+3. Copy the printed keys into `.env.local` (names match `.env.example`):
+
+```bash
+# Example mapping from `pnpm db:status` / `supabase status`
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
+SUPABASE_SERVICE_ROLE_KEY=<service-role-key>
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+4. Apply migrations (also runs on first start / reset):
+
+```bash
+pnpm db:reset
+```
+
+Useful commands:
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm db:start` | Start local Supabase (Docker) |
+| `pnpm db:stop` | Stop local Supabase |
+| `pnpm db:status` | Print local API URL and keys |
+| `pnpm db:reset` | Reset DB, re-run migrations + seed |
+
+Auth callback route: `/auth/callback`  
+Session refresh: `src/proxy.ts` (Next.js 16) via `src/lib/supabase/middleware.ts`
 
 ---
 
 ## Database migrations and seed data
 
-> Not available yet. Version-controlled SQL migrations and seed data will be added in **Phase 3** and **Phase 4**. See [docs/development-phases.md](docs/development-phases.md).
+Migrations live in [`supabase/migrations/`](supabase/migrations/). Phase 3 adds `profiles`. Catalog tables and richer seed data arrive in Phase 4.
 
-A dedicated [docs/database-schema.md](docs/database-schema.md) will be created when the schema is implemented.
+```bash
+pnpm db:reset
+```
+
+A dedicated [docs/database-schema.md](docs/database-schema.md) will be expanded when the catalog schema lands.
 
 ---
 
@@ -204,10 +243,13 @@ A dedicated [docs/database-schema.md](docs/database-schema.md) will be created w
 | `pnpm start` | Serve production build |
 | `pnpm lint` | ESLint |
 | `pnpm typecheck` | TypeScript (`tsc --noEmit`) |
-| `pnpm test` | Vitest unit/component tests |
+| `pnpm test` | Vitest unit/component/integration tests |
+| `pnpm test:integration` | Integration tests only (needs local Supabase env) |
 | `pnpm test:e2e` | Playwright e2e |
-| `pnpm check` | typecheck + lint + unit tests |
+| `pnpm check` | typecheck + lint + unit/integration tests |
 | `pnpm format` | Prettier write |
+| `pnpm db:start` | Start local Supabase |
+| `pnpm db:stop` | Stop local Supabase |
 
 ---
 
@@ -264,10 +306,10 @@ Details: [docs/architecture.md](docs/architecture.md)
 
 ## Known limitations
 
-- Catalog, auth, AI, and admin features are not implemented yet (placeholder routes only)
+- Catalog UI, auth forms, AI, and admin features are not implemented yet (placeholder routes / infra only)
 - Screenshots will be added after richer UI phases
 - Product specification, database schema, and API reference docs are created in the phases that produce their content
-- Supabase local stack is not configured until Phase 3
+- Local Supabase requires Docker Desktop running
 
 ---
 

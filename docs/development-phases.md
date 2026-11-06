@@ -47,7 +47,7 @@ Related documents:
 | In progress | Currently being implemented |
 | Done | Completed and approved by you |
 
-Current overall status: **Phases 0–2 complete. Phase 3 not started.**
+Current overall status: **Phases 0–3 complete. Phase 4 not started.**
 
 ---
 
@@ -147,7 +147,7 @@ Establish the premium editorial visual identity: tokens, typography, layout chro
 
 ## Phase 3 — Supabase and auth infrastructure
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -171,10 +171,10 @@ Local Supabase stack (CLI + Docker), SSR auth clients, session refresh, and `pro
 
 ### Acceptance criteria
 
-- [ ] Local Supabase starts via documented pnpm scripts
-- [ ] SSR session pattern verified against current Supabase + Next.js docs
-- [ ] Service-role client is server-only
-- [ ] RLS enabled on `profiles`
+- [x] Local Supabase starts via documented pnpm scripts
+- [x] SSR session pattern verified against current Supabase + Next.js docs
+- [x] Service-role client is server-only
+- [x] RLS enabled on `profiles`
 
 ---
 

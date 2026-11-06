@@ -1,0 +1,2 @@
+-- Seed data is added in Phase 4 (catalog content).
+-- Keep this file present so `supabase db reset` has a stable seed entrypoint.
