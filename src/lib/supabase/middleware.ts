@@ -3,7 +3,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { hasSupabasePublicConfig } from "@/lib/supabase/config";
 import type { Database } from "@/types/database";
 
-const protectedPrefixes = ["/account", "/favorites", "/collections"];
+const protectedPrefixes = [
+  "/account",
+  "/favorites",
+  "/collections",
+  "/studio/history",
+];
 
 /**
  * Refreshes the Supabase auth session on the request/response cookies.

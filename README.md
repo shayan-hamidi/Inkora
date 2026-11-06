@@ -10,11 +10,11 @@ This repository is a portfolio-grade full-stack application. Development follows
 
 ## Current status
 
-**Phases 1–10 complete — foundation through authentication UI**
+**Phases 1–15 complete — through favorites, collections, and AI Studio**
 
-Shipping surface now includes catalog data-access, marketing landing, gallery search/filters, tattoo detail pages, and auth (register / login / reset / account). Favorites and collections come next.
+Shipping surface now includes favorites, collections, Gemini text concepts (with history/refine), and an honest unavailable AI-image path. Admin and artists come next.
 
-Next step: **Phase 11 — Favorites** (requires explicit approval).
+Next step: **Phase 16 — Admin dashboard** (requires explicit approval).
 
 See [docs/development-phases.md](docs/development-phases.md) for the full 18-phase roadmap.
 
@@ -35,15 +35,15 @@ Status legend: **planned** means not implemented yet.
 
 | Feature | Priority | Status |
 | --- | --- | --- |
-| Tattoo discovery gallery | P1 | planned |
-| Search and filtering | P1 | planned |
-| Tattoo detail pages | P1 | planned |
-| Authentication | P1 | planned |
-| Favorites | P1 | planned |
-| Personal collections | P1 | planned |
-| AI tattoo concept generation | P2 | planned |
-| AI concept refinement | P2 | planned |
-| Optional AI image generation | P2 | planned |
+| Tattoo discovery gallery | P1 | shipped |
+| Search and filtering | P1 | shipped |
+| Tattoo detail pages | P1 | shipped |
+| Authentication | P1 | shipped |
+| Favorites | P1 | shipped |
+| Personal collections | P1 | shipped |
+| AI tattoo concept generation | P2 | shipped |
+| AI concept refinement | P2 | shipped |
+| Optional AI image generation | P2 | shipped (unavailable by default) |
 | Admin dashboard | P2 | planned |
 | Artist discovery and profiles | P3 | planned |
 | Consultation requests (store only) | P3 | planned |
@@ -224,6 +224,7 @@ Migrations live in [`supabase/migrations/`](supabase/migrations/).
 | --- | --- |
 | `20261106190000_create_profiles.sql` | `profiles`, role protection, signup trigger |
 | `20261106200000_create_catalog_schema.sql` | Catalog taxonomies, tattoos, FTS, RLS, `tattoo-images` bucket |
+| `20261107010000_create_favorites_collections_ai.sql` | Favorites, collections, AI generations/images + private AI storage bucket |
 
 Seed file: [`supabase/seed.sql`](supabase/seed.sql) (synthetic demo artwork only — no scraped portfolios).
 
@@ -237,7 +238,19 @@ Schema reference: [docs/database-schema.md](docs/database-schema.md)
 
 ## AI provider configuration
 
-> Not available yet. Provider interfaces and configuration will be added in **Phases 13–15**. Image generation remains optional and never falls back to a paid provider.
+Text concepts use a provider interface with Gemini as the first concrete implementation.
+
+| Env var | Purpose |
+| --- | --- |
+| `GEMINI_API_KEY` | Server-only Gemini API key (never exposed to the browser) |
+| `IMAGE_GENERATION_ENABLED` | Must be `true` to even attempt AI images (still unavailable by default) |
+| `HF_TOKEN` | Reserved for a future free image path; not required for core Studio |
+
+**App rate limits (Postgres-backed):** 3 requests/minute and 10/day per user.
+
+**Gemini free-tier note (checked 2026-11-07):** Google publishes limits per project/model in AI Studio; they are not guaranteed. Flash models are often ~5 RPM / ~20 RPD; Flash-Lite models are often higher. INKORA defaults to `gemini-2.5-flash-lite` and keeps stricter app caps. 429/quota surfaces as “try later”.
+
+**Image generation note (checked 2026-11-07):** Hugging Face Inference Providers has no free monthly credits for free accounts. ZeroGPU Spaces are quota/queue fragile. INKORA ships an honest unavailable UI plus a licensed catalog-reference path that is never labeled AI-generated. No paid fallback.
 
 ---
 
@@ -288,11 +301,11 @@ pnpm start
 INKORA is designed to run without paid services for core features. Known constraints to plan around:
 
 - **Supabase Free** may pause inactive projects.
-- **Gemini free tier** has rate and quota limits that can change; prompts may be used under Google’s free-tier data terms (disclose in the UI when AI ships).
-- **Hugging Face ZeroGPU** is optional, subject to quota and cold starts, and may exceed serverless timeouts.
+- **Gemini free tier** (dated 2026-11-07): project/model limits vary in AI Studio; Flash often ~5 RPM / ~20 RPD. Prompts/outputs may be processed under Google’s generative AI terms (disclosed in Studio UI).
+- **Hugging Face image path** (dated 2026-11-07): no free Inference Provider credits; ZeroGPU not treated as a reliable core dependency — image gen stays unavailable unless explicitly enabled later.
 - **Vercel Hobby** has image optimization and function duration limits.
 
-Limits will be verified and dated when each integration is implemented. Nothing here promises unlimited free inference.
+Nothing here promises unlimited free inference.
 
 ---
 

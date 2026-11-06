@@ -2,7 +2,7 @@
 
 This document matches the version-controlled SQL migrations under [`supabase/migrations/`](../supabase/migrations/).
 
-Last updated: Phase 4 (catalog schema + seed).
+Last updated: Phase 15 (favorites, collections, AI generations + optional images).
 
 ---
 
@@ -13,9 +13,11 @@ Last updated: Phase 4 (catalog schema + seed).
 | Auth profiles | `profiles` | Created on signup; role protected |
 | Catalog taxonomies | `categories`, `styles`, `placements`, `tags` | Public read |
 | Catalog content | `tattoos`, `tattoo_styles`, `tattoo_placements`, `tattoo_tags` | Published rows are public |
-| Storage | bucket `tattoo-images` | Public read; admin write |
+| User saves | `favorites`, `collections`, `collection_items` | Owner RLS; public collections readable |
+| AI | `ai_generations`, `ai_generation_images` | Private to owner; rate limits counted here |
+| Storage | buckets `tattoo-images`, `ai-generation-images` | Catalog public; AI images private per user folder |
 
-Not yet implemented (later phases): `favorites`, `collections`, `collection_items`, `ai_generations`, `ai_generation_images`, `artist_profiles`, consultation requests.
+Not yet implemented (later phases): `artist_profiles`, consultation requests.
 
 ---
 
@@ -134,7 +136,12 @@ where is_published = true
 | `tattoos` | `is_published = true` | admins only |
 | Join tables | when linked tattoo is published | admins only |
 | `profiles` | own row | own display fields; role locked |
+| `favorites` | own rows | own insert/delete |
+| `collections` | own + public | own insert/update/delete |
+| `collection_items` | via collection ownership / public | owners only |
+| `ai_generations` / `ai_generation_images` | own rows | own insert/delete |
 | `storage.objects` (`tattoo-images`) | public read | admins only |
+| `storage.objects` (`ai-generation-images`) | own folder | own upload/delete |
 
 `service_role` bypasses RLS (seeds, admin tooling, trusted server jobs).
 
@@ -172,6 +179,7 @@ No scraped tattoo portfolios are included.
 | --- | --- |
 | `20261106190000_create_profiles.sql` | Profiles, role protection, signup trigger |
 | `20261106200000_create_catalog_schema.sql` | Catalog, FTS, RLS, storage bucket |
+| `20261107010000_create_favorites_collections_ai.sql` | Favorites, collections, AI tables + AI image bucket |
 
 Apply locally:
 

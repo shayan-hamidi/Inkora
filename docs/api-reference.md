@@ -84,3 +84,17 @@ Invalid params return `400` with Zod field errors.
 | Server Actions in `features/authentication` | POST (form) | Login, register, reset password, logout |
 
 These are not JSON APIs; they are form/server-action endpoints.
+
+---
+
+## Favorites / collections / AI (server actions)
+
+No public JSON APIs for mutations. Authenticated flows use server actions:
+
+| Module | Actions |
+| --- | --- |
+| `features/favorites/server/actions` | `toggleFavoriteAction` |
+| `features/collections/server/actions` | create / update / delete collection, add / remove items |
+| `features/ai-studio/server/actions` | `generateConceptAction`, refine via `kind`, image request / licensed reference attach |
+
+AI keys stay server-side. Invalid model JSON is discarded after Zod validation.

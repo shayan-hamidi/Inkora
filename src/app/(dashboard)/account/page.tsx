@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -32,8 +33,7 @@ async function AccountContent() {
         <p className="text-meta">Dashboard</p>
         <h1 className="font-heading text-4xl text-ink">Your account</h1>
         <p className="text-muted-foreground">
-          Favorites and collections arrive in later phases. For now this
-          confirms authentication works end to end.
+          Manage favorites, collections, and AI concept history from here.
         </p>
       </div>
 
@@ -51,6 +51,27 @@ async function AccountContent() {
           <dd className="mt-1 text-sm">{profile?.role ?? "user"}</dd>
         </div>
       </dl>
+
+      <div className="flex flex-wrap gap-3">
+        <Link
+          href="/favorites"
+          className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+        >
+          Favorites
+        </Link>
+        <Link
+          href="/collections"
+          className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+        >
+          Collections
+        </Link>
+        <Link
+          href="/studio/history"
+          className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+        >
+          AI history
+        </Link>
+      </div>
 
       <LogoutButton />
     </div>

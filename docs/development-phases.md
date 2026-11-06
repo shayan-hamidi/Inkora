@@ -47,7 +47,7 @@ Related documents:
 | In progress | Currently being implemented |
 | Done | Completed and approved by you |
 
-Current overall status: **Phases 0–10 complete. Phase 11 not started.**
+Current overall status: **Phases 0–15 complete. Phase 16 not started.**
 
 ---
 
@@ -391,7 +391,7 @@ User-facing auth flows with React Hook Form + Zod, wired to Supabase Auth.
 
 ## Phase 11 — Favorites
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -412,15 +412,15 @@ RLS-backed favorites with optimistic UI.
 
 ### Acceptance criteria
 
-- [ ] Unauthenticated users prompted to sign in
-- [ ] RLS prevents cross-user mutation
-- [ ] Loading / error / success feedback present
+- [x] Unauthenticated users prompted to sign in
+- [x] RLS prevents cross-user mutation
+- [x] Loading / error / success feedback present
 
 ---
 
 ## Phase 12 — Collections
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -441,15 +441,15 @@ Personal collections with privacy controls.
 
 ### Acceptance criteria
 
-- [ ] Private collections enforced by RLS
-- [ ] Empty states for new collections
-- [ ] No duplicated business logic across pages
+- [x] Private collections enforced by RLS
+- [x] Empty states for new collections
+- [x] No duplicated business logic across pages
 
 ---
 
 ## Phase 13 — AI Studio: concept generation
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -473,17 +473,17 @@ Text AI concept generation behind a provider interface, Gemini free tier first. 
 
 ### Acceptance criteria
 
-- [ ] API keys never exposed to the browser
-- [ ] Invalid model JSON never trusted
-- [ ] 429 / quota surfaces as “try later”
-- [ ] App remains usable without calling AI on other routes
-- [ ] No paid fallback introduced
+- [x] API keys never exposed to the browser
+- [x] Invalid model JSON never trusted
+- [x] 429 / quota surfaces as “try later”
+- [x] App remains usable without calling AI on other routes
+- [x] No paid fallback introduced
 
 ---
 
 ## Phase 14 — AI concept refinement and history
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -504,15 +504,15 @@ Iterative refinement, symbolism, visual prompts, history, and save-into-collecti
 
 ### Acceptance criteria
 
-- [ ] History is private to the user
-- [ ] Refinement continues to enforce rate limits
-- [ ] Clear empty/history states
+- [x] History is private to the user
+- [x] Refinement continues to enforce rate limits
+- [x] Clear empty/history states
 
 ---
 
 ## Phase 15 — Optional image generation
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -535,10 +535,10 @@ Optional image provider. Confirm a workable free Hugging Face approach before ad
 
 ### Acceptance criteria
 
-- [ ] Core app works with image generation disabled
-- [ ] No automatic paid fallback
-- [ ] Stock/licensed images never claimed as AI-generated
-- [ ] Timeouts handled cleanly
+- [x] Core app works with image generation disabled
+- [x] No automatic paid fallback
+- [x] Stock/licensed images never claimed as AI-generated
+- [x] Timeouts handled cleanly
 
 ---
 

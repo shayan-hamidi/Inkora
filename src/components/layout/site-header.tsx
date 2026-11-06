@@ -7,10 +7,15 @@ import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const navItems = [
+const publicNavItems = [
   { href: "/tattoos", label: "Discover" },
   { href: "/studio", label: "Studio" },
   { href: "/artists", label: "Artists" },
+] as const;
+
+const authNavItems = [
+  { href: "/favorites", label: "Favorites" },
+  { href: "/collections", label: "Collections" },
 ] as const;
 
 type SiteHeaderProps = {
@@ -20,6 +25,9 @@ type SiteHeaderProps = {
 export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const navItems = isAuthenticated
+    ? [...publicNavItems, ...authNavItems]
+    : [...publicNavItems];
 
   return (
     <header className="border-border/60 bg-background/90 sticky top-0 z-50 border-b backdrop-blur-md">

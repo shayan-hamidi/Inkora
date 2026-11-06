@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
+import { AddToCollectionButton } from "@/features/collections/components/add-to-collection-button";
+import { listOwnCollections } from "@/features/collections/server/queries";
+import { FavoriteButton } from "@/features/favorites/components/favorite-button";
+import { isTattooFavorited } from "@/features/favorites/server/queries";
 import { TattooGrid } from "@/features/tattoos/components/tattoo-grid";
 import { TattooImage } from "@/features/tattoos/components/tattoo-image";
 import {
   getRelatedTattoos,
   getTattooBySlug,
 } from "@/features/tattoos/server/queries";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 type TattooDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -39,6 +45,7 @@ async function TattooDetailContent({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  await connection();
   const { slug } = await params;
   const tattoo = await getTattooBySlug(slug);
 
@@ -46,7 +53,17 @@ async function TattooDetailContent({
     notFound();
   }
 
-  const related = await getRelatedTattoos(tattoo, 3);
+  const supabase = await createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isAuthenticated = Boolean(user);
+
+  const [related, favorited, collections] = await Promise.all([
+    getRelatedTattoos(tattoo, 3),
+    isAuthenticated ? isTattooFavorited(tattoo.id) : Promise.resolve(false),
+    isAuthenticated ? listOwnCollections() : Promise.resolve([]),
+  ]);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
@@ -80,6 +97,20 @@ async function TattooDetailContent({
               </p>
             ) : null}
           </div>
+
+          <div className="flex flex-wrap gap-3">
+            <FavoriteButton
+              tattooId={tattoo.id}
+              initialFavorited={favorited}
+              isAuthenticated={isAuthenticated}
+            />
+          </div>
+
+          <AddToCollectionButton
+            isAuthenticated={isAuthenticated}
+            collections={collections}
+            tattooId={tattoo.id}
+          />
 
           <dl className="border-border/70 grid gap-4 border-y py-6 sm:grid-cols-2">
             <div>

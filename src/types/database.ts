@@ -23,7 +23,59 @@ export type Database = {
           }
         },"public": {
           Tables: {
-            "categories": {
+            "ai_generation_images": {
+                  Row: {
+                    "attribution": string | null,"created_at": string,"generation_id": string,"id": string,"is_ai_generated": boolean,"license": string | null,"provider": string | null,"public_url": string | null,"source": Database["public"]['Enums']["ai_image_source"],"storage_path": string | null,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "attribution"?: string | null,"created_at"?: string,"generation_id": string,"id"?: string,"is_ai_generated"?: boolean,"license"?: string | null,"provider"?: string | null,"public_url"?: string | null,"source": Database["public"]['Enums']["ai_image_source"],"storage_path"?: string | null,"user_id": string
+                  }
+                  Update: {
+                    "attribution"?: string | null,"created_at"?: string,"generation_id"?: string,"id"?: string,"is_ai_generated"?: boolean,"license"?: string | null,"provider"?: string | null,"public_url"?: string | null,"source"?: Database["public"]['Enums']["ai_image_source"],"storage_path"?: string | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "ai_generation_images_generation_id_fkey"
+      columns: ["generation_id"]
+isOneToOne: false
+      referencedRelation: "ai_generations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "ai_generation_images_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"ai_generations": {
+                  Row: {
+                    "concept": string | null,"created_at": string,"error_message": string | null,"id": string,"kind": Database["public"]['Enums']["ai_generation_kind"],"model": string | null,"parent_id": string | null,"prompt": string,"provider": string,"raw_response": Json | null,"status": Database["public"]['Enums']["ai_generation_status"],"suggested_placements": (string)[],"suggested_styles": (string)[],"symbolism": string | null,"title": string | null,"user_id": string,"visual_prompt": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "concept"?: string | null,"created_at"?: string,"error_message"?: string | null,"id"?: string,"kind": Database["public"]['Enums']["ai_generation_kind"],"model"?: string | null,"parent_id"?: string | null,"prompt": string,"provider"?: string,"raw_response"?: Json | null,"status"?: Database["public"]['Enums']["ai_generation_status"],"suggested_placements"?: (string)[],"suggested_styles"?: (string)[],"symbolism"?: string | null,"title"?: string | null,"user_id": string,"visual_prompt"?: string | null
+                  }
+                  Update: {
+                    "concept"?: string | null,"created_at"?: string,"error_message"?: string | null,"id"?: string,"kind"?: Database["public"]['Enums']["ai_generation_kind"],"model"?: string | null,"parent_id"?: string | null,"prompt"?: string,"provider"?: string,"raw_response"?: Json | null,"status"?: Database["public"]['Enums']["ai_generation_status"],"suggested_placements"?: (string)[],"suggested_styles"?: (string)[],"symbolism"?: string | null,"title"?: string | null,"user_id"?: string,"visual_prompt"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "ai_generations_parent_id_fkey"
+      columns: ["parent_id"]
+isOneToOne: false
+      referencedRelation: "ai_generations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "ai_generations_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"categories": {
                   Row: {
                     "created_at": string,"description": string | null,"id": string,"name": string,"slug": string,"updated_at": string
                   }
@@ -36,6 +88,84 @@ export type Database = {
                   }
                   Relationships: [
                     
+                  ]
+                },"collection_items": {
+                  Row: {
+                    "ai_generation_id": string | null,"collection_id": string,"created_at": string,"id": string,"notes": string | null,"tattoo_id": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "ai_generation_id"?: string | null,"collection_id": string,"created_at"?: string,"id"?: string,"notes"?: string | null,"tattoo_id"?: string | null
+                  }
+                  Update: {
+                    "ai_generation_id"?: string | null,"collection_id"?: string,"created_at"?: string,"id"?: string,"notes"?: string | null,"tattoo_id"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "collection_items_ai_generation_id_fkey"
+      columns: ["ai_generation_id"]
+isOneToOne: false
+      referencedRelation: "ai_generations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "collection_items_collection_id_fkey"
+      columns: ["collection_id"]
+isOneToOne: false
+      referencedRelation: "collections"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "collection_items_tattoo_id_fkey"
+      columns: ["tattoo_id"]
+isOneToOne: false
+      referencedRelation: "tattoos"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"collections": {
+                  Row: {
+                    "created_at": string,"description": string | null,"id": string,"name": string,"slug": string,"updated_at": string,"user_id": string,"visibility": Database["public"]['Enums']["collection_visibility"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"description"?: string | null,"id"?: string,"name": string,"slug": string,"updated_at"?: string,"user_id": string,"visibility"?: Database["public"]['Enums']["collection_visibility"]
+                  }
+                  Update: {
+                    "created_at"?: string,"description"?: string | null,"id"?: string,"name"?: string,"slug"?: string,"updated_at"?: string,"user_id"?: string,"visibility"?: Database["public"]['Enums']["collection_visibility"]
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "collections_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"favorites": {
+                  Row: {
+                    "created_at": string,"tattoo_id": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"tattoo_id": string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"tattoo_id"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "favorites_tattoo_id_fkey"
+      columns: ["tattoo_id"]
+isOneToOne: false
+      referencedRelation: "tattoos"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "favorites_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
                   ]
                 },"placements": {
                   Row: {
@@ -202,7 +332,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "user_role": "user"|"admin"
+            "ai_generation_kind": "concept"|"refine"|"symbolism"|"visual_prompt","ai_generation_status": "succeeded"|"failed","ai_image_source": "ai"|"licensed_reference","collection_visibility": "private"|"public","user_role": "user"|"admin"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -322,7 +452,7 @@ export const Constants = {
           }
         },"public": {
           Enums: {
-            "user_role": ["user", "admin"]
+            "ai_generation_kind": ["concept", "refine", "symbolism", "visual_prompt"],"ai_generation_status": ["succeeded", "failed"],"ai_image_source": ["ai", "licensed_reference"],"collection_visibility": ["private", "public"],"user_role": ["user", "admin"]
           }
         }
 } as const

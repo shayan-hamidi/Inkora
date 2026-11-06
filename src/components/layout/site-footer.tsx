@@ -33,7 +33,7 @@ export function SiteFooter() {
       <div className="border-border/60 border-t">
         <div className="text-meta mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <span>Portfolio build in progress</span>
-          <span>Phases 0–10</span>
+          <span>Phases 0–15</span>
         </div>
       </div>
     </footer>
