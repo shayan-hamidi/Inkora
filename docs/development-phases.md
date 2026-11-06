@@ -47,7 +47,7 @@ Related documents:
 | In progress | Currently being implemented |
 | Done | Completed and approved by you |
 
-Current overall status: **Phases 0–3 complete. Phase 4 not started.**
+Current overall status: **Phases 0–4 complete. Phase 5 not started.**
 
 ---
 
@@ -180,7 +180,7 @@ Local Supabase stack (CLI + Docker), SSR auth clients, session refresh, and `pro
 
 ## Phase 4 — Content schema and seed
 
-**Status:** Not started
+**Status:** Done
 
 ### Scope
 
@@ -202,10 +202,10 @@ Catalog schema, indexes, RLS, storage bucket, and licensed / demo seed data. Cre
 
 ### Acceptance criteria
 
-- [ ] All planned catalog entities exist with FKs, indexes, timestamps
-- [ ] No scraped copyrighted portfolios
-- [ ] Schema doc matches migrations
-- [ ] README migration / seed sections updated
+- [x] All planned catalog entities exist with FKs, indexes, timestamps
+- [x] No scraped copyrighted portfolios
+- [x] Schema doc matches migrations
+- [x] README migration / seed sections updated
 
 ---
 

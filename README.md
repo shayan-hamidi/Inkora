@@ -10,11 +10,11 @@ This repository is a portfolio-grade full-stack application. Development follows
 
 ## Current status
 
-**Phases 1–3 complete — foundation, design system, Supabase auth infrastructure**
+**Phases 1–4 complete — foundation through catalog schema/seed**
 
-The Next.js app includes the INKORA editorial layout shell plus local Supabase Auth clients, session proxy refresh, `profiles` migration/RLS, and an auth callback route. Catalog and auth UI come in later phases.
+The app includes the editorial shell, Supabase Auth infrastructure, and a seeded public tattoo catalog (synthetic demo artwork + RLS). Gallery UI and typed data-access land in later phases.
 
-Next step: **Phase 4 — Content schema and seed** (requires explicit approval).
+Next step: **Phase 5 — Data-access layer** (requires explicit approval).
 
 See [docs/development-phases.md](docs/development-phases.md) for the full 18-phase roadmap.
 
@@ -218,13 +218,20 @@ Session refresh: `src/proxy.ts` (Next.js 16) via `src/lib/supabase/middleware.ts
 
 ## Database migrations and seed data
 
-Migrations live in [`supabase/migrations/`](supabase/migrations/). Phase 3 adds `profiles`. Catalog tables and richer seed data arrive in Phase 4.
+Migrations live in [`supabase/migrations/`](supabase/migrations/).
+
+| Migration | Contents |
+| --- | --- |
+| `20261106190000_create_profiles.sql` | `profiles`, role protection, signup trigger |
+| `20261106200000_create_catalog_schema.sql` | Catalog taxonomies, tattoos, FTS, RLS, `tattoo-images` bucket |
+
+Seed file: [`supabase/seed.sql`](supabase/seed.sql) (synthetic demo artwork only — no scraped portfolios).
 
 ```bash
 pnpm db:reset
 ```
 
-A dedicated [docs/database-schema.md](docs/database-schema.md) will be expanded when the catalog schema lands.
+Schema reference: [docs/database-schema.md](docs/database-schema.md)
 
 ---
 
@@ -325,8 +332,8 @@ Tracked after the initial 18-phase release. Candidates include payments, messagi
 | --- | --- |
 | [docs/architecture.md](docs/architecture.md) | present |
 | [docs/development-phases.md](docs/development-phases.md) | present |
+| [docs/database-schema.md](docs/database-schema.md) | present |
 | docs/product-specification.md | planned (later phase) |
-| docs/database-schema.md | planned (Phase 4) |
 | docs/api-reference.md | planned (Phase 8) |
 
 ---

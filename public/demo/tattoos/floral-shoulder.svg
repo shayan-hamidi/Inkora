@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Demo floral shoulder tattoo">
+  <rect width="800" height="1000" fill="#EAE6DE"/>
+  <circle cx="400" cy="420" r="90" fill="none" stroke="#171717" stroke-width="8"/>
+  <path d="M400 250c30 40 70 60 110 70-40 20-80 50-110 100-30-50-70-80-110-100 40-10 80-30 110-70z" fill="none" stroke="#753D43" stroke-width="7"/>
+  <path d="M400 520c20 80 10 160-20 240" fill="none" stroke="#171717" stroke-width="6" stroke-linecap="round"/>
+  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo · synthetic artwork</text>
+</svg>

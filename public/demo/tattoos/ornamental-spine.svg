@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Demo ornamental spine tattoo">
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <path d="M400 140v620" stroke="#171717" stroke-width="5"/>
+  <path d="M400 220c60 20 60 60 0 80s-60 60 0 80 60 60 0 80-60 60 0 80" fill="none" stroke="#753D43" stroke-width="6"/>
+  <circle cx="400" cy="160" r="18" fill="none" stroke="#171717" stroke-width="6"/>
+  <circle cx="400" cy="780" r="12" fill="#171717"/>
+  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo · synthetic artwork</text>
+</svg>

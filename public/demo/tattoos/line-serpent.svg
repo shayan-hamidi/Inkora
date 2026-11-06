@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Demo linework serpent tattoo">
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <path d="M390 120c40 40 20 90-10 120s-50 70-20 120 70 70 40 130-90 80-50 140 110 70 70 130" fill="none" stroke="#171717" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="390" cy="120" r="14" fill="#753D43"/>
+  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo · synthetic artwork</text>
+</svg>

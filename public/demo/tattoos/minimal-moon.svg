@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Demo minimal moon tattoo">
+  <rect width="800" height="1000" fill="#EAE6DE"/>
+  <path d="M430 280a140 140 0 1 0 0 280 110 110 0 1 1 0-280z" fill="none" stroke="#171717" stroke-width="9"/>
+  <circle cx="520" cy="340" r="6" fill="#753D43"/>
+  <circle cx="545" cy="390" r="4" fill="#171717"/>
+  <circle cx="510" cy="430" r="5" fill="#171717"/>
+  <text x="40" y="960" fill="#888780" font-family="Georgia, serif" font-size="22">INKORA demo · synthetic artwork</text>
+</svg>
